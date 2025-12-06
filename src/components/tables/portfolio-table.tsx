@@ -2,7 +2,12 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { DataTable, type Column, type Row } from "../core/table";
-import type { Portfolio } from "../../pages/home/portfolio/portfolio-page";
+
+import { IconButton } from "@mui/material";
+import { Eye } from "@phosphor-icons/react";
+import { CompanyModal } from "../dialogs/company-modal";
+import type { Portfolio } from "../../interfaces/portfolio";
+import type { Company } from "../../interfaces/company";
 
 interface PortfolioTableProps {
   portfolio: Portfolio;
@@ -13,10 +18,7 @@ interface PortfolioTableProps {
   isLoading: boolean;
 }
 
-interface CompanyRow extends Row {
-  id: string;
-  name: string;
-}
+type CompanyRow = Company & Row;
 
 export const PortfolioTable: React.FC<PortfolioTableProps> = ({
   portfolio,
@@ -26,6 +28,13 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({
   setSortedBy,
   isLoading,
 }) => {
+  const [openMenu, setOpenMenu] = React.useState<{
+    open: boolean;
+    row?: CompanyRow;
+  }>({
+    open: false,
+  });
+
   const columns: Column[] = [
     {
       name: "Company",
@@ -33,7 +42,63 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({
       headerName: "Company",
       isSortable: true,
       formatter: (row: Row) => {
-        return <Typography variant="subtitle1">{row.name}</Typography>;
+        return (
+          <Typography variant="subtitle1">
+            {(row as CompanyRow).name}
+          </Typography>
+        );
+      },
+    },
+    {
+      name: "Head Quarter",
+      field: "hq",
+      headerName: "Head Quarter",
+      isSortable: true,
+      formatter: (row: Row) => {
+        return (
+          <Typography variant="subtitle1">{(row as CompanyRow).hq}</Typography>
+        );
+      },
+    },
+    {
+      name: "Year of Incorporation",
+      field: "yoi",
+      headerName: "Year of Incorporation",
+      isSortable: true,
+      align: "center",
+      formatter: (row: Row) => {
+        return (
+          <Typography variant="subtitle1">{(row as CompanyRow).yoi}</Typography>
+        );
+      },
+    },
+    {
+      name: "Description",
+      field: "description",
+      headerName: "Description",
+      isSortable: true,
+      align: "center",
+      formatter: (row: Row) => {
+        return (
+          <Typography variant="subtitle1">
+            {(row as CompanyRow).industry}
+          </Typography>
+        );
+      },
+    },
+    {
+      name: "actions",
+      field: "actions",
+      headerName: "Actions",
+      align: "center",
+      formatter: (row: Row) => {
+        return (
+          <IconButton
+            onClick={() => setOpenMenu({ open: true, row: row as CompanyRow })}
+          >
+            <Eye />
+          </IconButton>
+        );
       },
     },
   ];
@@ -54,6 +119,13 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({
           blockLastColumn={true}
         />
       </Box>
+
+      {openMenu.open && (
+        <CompanyModal
+          handleClose={() => setOpenMenu({ open: false })}
+          company={openMenu.row as CompanyRow}
+        />
+      )}
     </React.Fragment>
   );
 };

@@ -6,15 +6,7 @@ import { fetchPortfolio } from "../../../api/portfolio";
 import { CustomPagination } from "../../../components/pagination/custom-table-pagination";
 import { useQuery } from "@tanstack/react-query";
 import { PortfolioTable } from "../../../components/tables/portfolio-table";
-
-export interface Portfolio {
-  companies: Company[];
-}
-
-export interface Company {
-  id: string;
-  name: string;
-}
+import type { Portfolio } from "../../../interfaces/portfolio";
 
 interface SortedBy {
   ID: number;

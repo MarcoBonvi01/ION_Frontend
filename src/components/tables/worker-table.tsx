@@ -3,8 +3,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { DataTable, type Column, type Row } from "../core/table";
 import { Checkbox } from "@mui/material";
-import type { Work } from "../../pages/home/worker/worker-page";
 import dayjs from "dayjs";
+import type { Work } from "../../interfaces/works";
 
 interface WorkTableProps {
   works: Work[];
@@ -15,11 +15,7 @@ interface WorkTableProps {
   isLoading: boolean;
 }
 
-interface WorkRow extends Row {
-  id: string;
-  success: boolean;
-  executed_at: Date;
-}
+type WorkRow = Work & Row;
 
 export const WorkTable: React.FC<WorkTableProps> = ({
   works,

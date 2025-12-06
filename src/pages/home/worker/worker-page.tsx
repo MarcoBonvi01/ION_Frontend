@@ -7,12 +7,6 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchWorks } from "../../../api/work";
 import { WorkTable } from "../../../components/tables/worker-table";
 
-export interface Work {
-  id: string;
-  success: boolean;
-  executed_at: Date;
-}
-
 interface SortedBy {
   ID: number;
   name: string;
