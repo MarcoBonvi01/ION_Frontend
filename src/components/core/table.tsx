@@ -14,7 +14,7 @@ import { ArrowDown, ArrowsDownUp, ArrowUp } from "@phosphor-icons/react";
 
 export interface Row {
   id: string;
-  [key: string]: string | number;
+  [key: string]: string | number | boolean | Date;
 }
 
 export interface Column {
@@ -218,7 +218,9 @@ export function DataTable({
                             {capitalizeWords(value)}
                           </Typography>
                         ) : (
-                          <Typography variant="body2">{value}</Typography>
+                          <Typography variant="body2">
+                            {value?.toString()}
+                          </Typography>
                         )}
                       </TableCell>
                     );

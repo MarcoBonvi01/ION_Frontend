@@ -6,3 +6,5 @@ const url = !config.backend_port
 
 export const FILTER_PORTFOLIO = url + "/portfolio"; // GET
 export const GET_COMPANY = url + "/company"; // GET
+
+export const FILTER_WORKS = url + "/works";
