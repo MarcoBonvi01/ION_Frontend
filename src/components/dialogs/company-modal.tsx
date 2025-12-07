@@ -10,7 +10,6 @@ import dayjs from "dayjs";
 import { PropertyList } from "../core/property-list";
 import { PropertyItem } from "../core/property-item";
 import type { Company } from "../../interfaces/company";
-import { Logo } from "../core/logo";
 import { Box } from "@mui/material";
 
 export const CompanyModal: React.FC<{
@@ -70,8 +69,15 @@ export const CompanyModal: React.FC<{
                     value: dayjs(company.yoi).format("YYYY"),
                   },
                   {
-                    key: "Head Quarter",
-                    value: company.hq,
+                    key: "Head Quarter City",
+                    value: company.hq.city,
+                  },
+                  ...(company.hq.state
+                    ? [{ key: "Head Quarter State", value: company.hq.state }]
+                    : []),
+                  {
+                    key: "Head Quarter Country",
+                    value: company.hq.country,
                   },
                   {
                     key: "Industry",
@@ -90,7 +96,7 @@ export const CompanyModal: React.FC<{
                     value: company.description,
                   },
                   {
-                    key: "Created at",
+                    key: "Created At",
                     value: dayjs(company.createdAt).format("DD/MM/YYYY HH:mm"),
                   },
                 ].map((item) => (

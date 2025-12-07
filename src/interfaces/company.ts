@@ -1,7 +1,11 @@
 export interface Company {
   id: string;
   name: string;
-  hq: string;
+  hq: {
+    city: string;
+    state: string;
+    country: string;
+  };
   yoi: number;
   industry: string;
   sector: string;

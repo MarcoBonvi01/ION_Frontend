@@ -50,13 +50,47 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({
       },
     },
     {
-      name: "Head Quarter",
-      field: "hq",
-      headerName: "Head Quarter",
+      name: "Head QuarterCity",
+      field: "hq.city",
+      headerName: "Head Quarter City",
       isSortable: true,
       formatter: (row: Row) => {
-        return (
-          <Typography variant="subtitle1">{(row as CompanyRow).hq}</Typography>
+        const hq = (row as CompanyRow).hq;
+
+        return hq.city ? (
+          <Typography variant="subtitle1">{hq.city}</Typography>
+        ) : (
+          <Typography variant="subtitle1">N/A</Typography>
+        );
+      },
+    },
+    {
+      name: "Head Quarter",
+      field: "hq.state",
+      headerName: "Head Quarter State",
+      isSortable: true,
+      formatter: (row: Row) => {
+        const hq = (row as CompanyRow).hq;
+
+        return hq.state ? (
+          <Typography variant="subtitle1">{hq.state}</Typography>
+        ) : (
+          <Typography variant="subtitle1">N/A</Typography>
+        );
+      },
+    },
+    {
+      name: "Head Quarter",
+      field: "hq",
+      headerName: "Head Quarter Country",
+      isSortable: true,
+      formatter: (row: Row) => {
+        const hq = (row as CompanyRow).hq;
+
+        return hq.country ? (
+          <Typography variant="subtitle1">{hq.country}</Typography>
+        ) : (
+          <Typography variant="subtitle1">N/A</Typography>
         );
       },
     },
