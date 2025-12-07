@@ -24,7 +24,7 @@ export const config: Settings = {
     themeColor: "#3C75DF",
     primaryColor: "#3C75DF",
     url: getSiteURL(),
-    version: import.meta.env.VITE_SITE_VERSION || "0.0.0",
+    version: import.meta.env.VITE_SITE_VERSION || "1.0.0",
   },
   logLevel: import.meta.env.VITE_LOG_LEVEL || LogLevel.ALL,
   backend_url: import.meta.env.VITE_BACKEND_URL,

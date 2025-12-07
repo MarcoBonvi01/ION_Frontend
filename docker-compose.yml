@@ -1,0 +1,27 @@
+# ultima versione di docker-compose
+version: "3.9"
+
+services:
+  frontend:
+    image: "frontend"
+    container_name: "frontend"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    networks:
+      ION_network:
+        ipv4_address: 172.20.0.2
+    ports:
+      - "3000:3000"
+
+networks:
+  ION_network:
+    name: ION
+    driver: bridge
+    external: false
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/16
