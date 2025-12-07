@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { Layout } from "../components/layout/layout";
+import { TablePaginationProvider } from "../contexts/table-pagination/table-pagination-provider";
 
 export const route = {
   element: (
@@ -15,7 +16,13 @@ export const route = {
           "../pages/home/portfolio/portfolio-page"
         )) as { Page: React.FC };
 
-        return { Component: Page };
+        return {
+          Component: () => (
+            <TablePaginationProvider>
+              <Page />
+            </TablePaginationProvider>
+          ),
+        };
       },
     },
     {
@@ -25,7 +32,13 @@ export const route = {
           Page: React.FC;
         };
 
-        return { Component: Page };
+        return {
+          Component: () => (
+            <TablePaginationProvider>
+              <Page />
+            </TablePaginationProvider>
+          ),
+        };
       },
     },
   ],

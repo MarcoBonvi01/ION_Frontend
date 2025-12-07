@@ -1,4 +1,13 @@
-import { Box, Card, Divider, Grow, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  Divider,
+  Grow,
+  Input,
+  InputAdornment,
+  Stack,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import { RiseLoader } from "react-spinners";
 import { TablePaginationContext } from "../../../contexts/table-pagination/table-pagination-context";
@@ -7,6 +16,7 @@ import { CustomPagination } from "../../../components/pagination/custom-table-pa
 import { useQuery } from "@tanstack/react-query";
 import { PortfolioTable } from "../../../components/tables/portfolio-table";
 import type { Portfolio } from "../../../interfaces/portfolio";
+import { MagnifyingGlass as MagnifyingGlassIcon } from "@phosphor-icons/react/dist/ssr/MagnifyingGlass";
 
 interface SortedBy {
   ID: number;
@@ -14,13 +24,10 @@ interface SortedBy {
 }
 
 export function Page() {
+  const [search, setSearch] = React.useState<string>("");
+
   const { setFrom, from, currentPage, setCurrentPage, pageSize } =
     React.useContext(TablePaginationContext);
-
-  const filter: React.RefObject<{ [key: string]: string | number }> =
-    React.useRef({
-      status: 1,
-    });
 
   const [sortedBy, setSortedBy] = React.useState<SortedBy>({
     ID: 0,
@@ -39,24 +46,32 @@ export function Page() {
     isError: isErrorPortfolio,
     error: errorPortfolio,
   } = useQuery<{ count: number; portfolio: Portfolio }>({
-    queryKey: ["portfolio", sortedBy, sortDirection, pageSize, currentPage],
+    queryKey: [
+      "portfolio",
+      search,
+      sortedBy,
+      sortDirection,
+      pageSize,
+      currentPage,
+      from,
+    ],
     queryFn: () => {
       return fetchPortfolio(
-        filter.current,
         currentPage,
         pageSize,
         sortedBy,
-        sortDirection
+        sortDirection,
+        search
       );
     },
   });
 
   React.useEffect(() => {
-    if (filter.current) {
+    if (search.length > 0) {
       if (currentPage != 0) setCurrentPage(0);
       if (from != 0) setFrom(0);
     }
-  }, [filter.current, setFrom, setCurrentPage, currentPage, from]);
+  }, [search]);
 
   if (errorPortfolio) {
     console.error("error");
@@ -91,35 +106,53 @@ export function Page() {
           width: "var(--Content-width)",
         }}
       >
-        <Grow in timeout={500}>
-          <Card>
-            <Divider />
+        <Stack spacing={4}>
+          <Box sx={{ flex: "1 1 auto" }}>
+            <Typography variant="h4">Portfolio</Typography>
+          </Box>
 
-            <PortfolioTable
-              portfolio={
-                isFetchingPortfolio || !data
-                  ? { companies: [] }
-                  : data.portfolio
-              }
-              setSortedBy={setSortedBy}
-              setSortDirection={setSortDirection}
-              sortDirection={sortDirection}
-              sortedBy={sortedBy}
-              isLoading={
-                isLoadingPortfolio ||
-                isErrorPortfolio ||
-                isFetchingPortfolio ||
-                isPendingPortfolio
-              }
-            />
+          <Grow in timeout={500}>
+            <Card>
+              <Input
+                fullWidth
+                placeholder="Cerca"
+                onChange={(event) => setSearch(event.target.value)}
+                startAdornment={
+                  <InputAdornment position="start">
+                    <MagnifyingGlassIcon />
+                  </InputAdornment>
+                }
+                sx={{ px: 3, py: 2 }}
+              />
 
-            <Divider />
+              <Divider />
 
-            <CustomPagination
-              count={isFetchingPortfolio || !data ? 0 : data.count}
-            />
-          </Card>
-        </Grow>
+              <PortfolioTable
+                portfolio={
+                  isFetchingPortfolio || !data
+                    ? { companies: [] }
+                    : data.portfolio
+                }
+                setSortedBy={setSortedBy}
+                setSortDirection={setSortDirection}
+                sortDirection={sortDirection}
+                sortedBy={sortedBy}
+                isLoading={
+                  isLoadingPortfolio ||
+                  isErrorPortfolio ||
+                  isFetchingPortfolio ||
+                  isPendingPortfolio
+                }
+              />
+
+              <Divider />
+
+              <CustomPagination
+                count={isFetchingPortfolio || !data ? 0 : data.count}
+              />
+            </Card>
+          </Grow>
+        </Stack>
       </Box>
     </React.Fragment>
   );

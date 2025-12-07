@@ -6,8 +6,8 @@ export const TablePaginationProvider: React.FC<{
 }> = ({ children }) => {
   const initialPageSize = 10;
 
-  const [from, setFrom] = React.useState(0);
-  const [currentPage, setCurrentPage] = React.useState(0);
+  const [from, setFrom] = React.useState<number>(0);
+  const [currentPage, setCurrentPage] = React.useState<number>(0);
   const [pageSize, setPageSize] = React.useState(initialPageSize);
 
   return (

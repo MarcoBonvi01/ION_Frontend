@@ -8,6 +8,6 @@ export interface Company {
   region: string;
   assetClass: string;
   createdAt: Date;
-  logo_bytes: Uint8Array;
+  logo_base64: string;
   description: string;
 }

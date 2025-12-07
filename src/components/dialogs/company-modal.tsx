@@ -7,20 +7,19 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { X as XIcon } from "@phosphor-icons/react/dist/ssr/X";
 import dayjs from "dayjs";
-import type { Company } from "../../pages/home/portfolio/portfolio-page";
 import { PropertyList } from "../core/property-list";
 import { PropertyItem } from "../core/property-item";
-import { bytesToBase64 } from "../../lib/bytes-to-base64";
+import type { Company } from "../../interfaces/company";
+import { Logo } from "../core/logo";
+import { Box } from "@mui/material";
 
 export const CompanyModal: React.FC<{
   handleClose: () => void;
   company: Company;
 }> = ({ handleClose, company }) => {
-  const logoSrc = company.logo_bytes
-    ? `data:image/png;base64,${bytesToBase64(company.logo_bytes)}`
+  const logoSrc = company.logo_base64
+    ? `data:image/png;base64,${company.logo_base64}`
     : undefined;
-
-  console.log(logoSrc);
 
   return (
     <Dialog
@@ -52,15 +51,20 @@ export const CompanyModal: React.FC<{
         <Stack spacing={3} sx={{ flex: "1 1 auto", overflowY: "auto" }}>
           <Stack spacing={3}>
             <Card sx={{ borderRadius: 1 }} variant="outlined">
-              <img
-                src={logoSrc}
-                alt={`${company.name} logo`}
-                style={{ maxHeight: 150, objectFit: "contain" }}
-              />
-
               <PropertyList divider={<Divider />}>
                 {[
-                  { key: "Name", value: company.name },
+                  {
+                    key: "Logo",
+                    value: (
+                      <Box
+                        alt={`${company.name} logo`}
+                        height={150}
+                        src={logoSrc}
+                        width={220}
+                        component="img"
+                      />
+                    ),
+                  },
                   {
                     key: "Year of Incorporation",
                     value: dayjs(company.yoi).format("YYYY"),
