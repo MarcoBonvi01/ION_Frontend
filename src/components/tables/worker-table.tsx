@@ -32,13 +32,15 @@ export const WorkTable: React.FC<WorkTableProps> = ({
       headerName: "Identifier",
       align: "center",
       formatter: (row: Row) => {
-        return <Typography variant="subtitle1">{row.id}</Typography>;
+        return (
+          <Typography variant="subtitle1">{(row as WorkRow)._id}</Typography>
+        );
       },
     },
     {
-      name: "Work",
+      name: "executed_at",
       field: "executed_at",
-      headerName: "Date",
+      headerName: "Executed At",
       isSortable: true,
       align: "center",
       formatter: (row: Row) => {
@@ -50,9 +52,75 @@ export const WorkTable: React.FC<WorkTableProps> = ({
       },
     },
     {
-      name: "Work",
+      name: "terminated_at",
+      field: "terminated_at",
+      headerName: "Terminated At",
+      isSortable: true,
+      align: "center",
+      formatter: (row: Row) => {
+        return (
+          <Typography variant="subtitle1">
+            {dayjs(row.terminated_at as Date).format("DD/MM/YYYY HH:mm")}
+          </Typography>
+        );
+      },
+    },
+    {
+      name: "elements_downloaded",
+      field: "elements_downloaded",
+      headerName: "Downloaded Elements",
+      align: "center",
+      formatter: (row: Row) => {
+        return (
+          <Typography variant="subtitle1">
+            {(row as WorkRow).elements_downloaded.toString()}
+          </Typography>
+        );
+      },
+    },
+    {
+      name: "elements_added",
+      field: "elements_added",
+      headerName: "Added Elements",
+      align: "center",
+      formatter: (row: Row) => {
+        return (
+          <Typography variant="subtitle1">
+            {(row as WorkRow).elements_added.toString()}
+          </Typography>
+        );
+      },
+    },
+    {
+      name: "elements_duplicated",
+      field: "elements_duplicated",
+      headerName: "Duplicated Elements",
+      align: "center",
+      formatter: (row: Row) => {
+        return (
+          <Typography variant="subtitle1">
+            {(row as WorkRow).elements_duplicated.toString()}
+          </Typography>
+        );
+      },
+    },
+    {
+      name: "elements_removed",
+      field: "elements_removed",
+      headerName: "Removed Elements",
+      align: "center",
+      formatter: (row: Row) => {
+        return (
+          <Typography variant="subtitle1">
+            {(row as WorkRow).elements_removed.toString()}
+          </Typography>
+        );
+      },
+    },
+    {
+      name: "success",
       field: "success",
-      headerName: "Status",
+      headerName: "Success",
       formatter: (row: Row) => {
         return <Checkbox checked={row.success as boolean} />;
       },
