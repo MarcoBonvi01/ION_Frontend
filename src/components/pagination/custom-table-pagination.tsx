@@ -7,7 +7,7 @@ export const CustomPagination: React.FC<{ count: number }> = ({ count }) => {
     React.useContext(TablePaginationContext);
 
   const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    _: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
     newPage: number
   ) => {
     if (currentPage < newPage) {

@@ -1,6 +1,6 @@
 import apiBase from "./api-base";
 import { FILTER_WORKS } from "../constants/end-points";
-import type { Work } from "../pages/home/worker/worker-page";
+import type { Work } from "../interfaces/works";
 
 export const fetchWorks = async (
   filter: { [key: string]: string | number },

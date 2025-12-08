@@ -35,6 +35,8 @@ export class Logger {
     this.level = level;
     this.levelNumber = LogLevelNumber[level];
     this.showLevel = showLevel;
+
+    console.log(this.level);
   }
 
   debug(...args: unknown[]) {

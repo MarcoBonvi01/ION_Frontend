@@ -6,6 +6,7 @@ import { CustomPagination } from "../../../components/pagination/custom-table-pa
 import { useQuery } from "@tanstack/react-query";
 import { fetchWorks } from "../../../api/work";
 import { WorkTable } from "../../../components/tables/worker-table";
+import type { Work } from "../../../interfaces/works";
 
 interface SortedBy {
   ID: number;
