@@ -14,7 +14,7 @@ services:
       ION_network:
         ipv4_address: 172.20.0.2
     ports:
-      - "3000:3000"
+      - "${VITE_PORT}:3001"
 
 networks:
   ION_network:

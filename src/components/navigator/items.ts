@@ -22,13 +22,13 @@ export const navItems: NavItemType[] = [
       {
         k: "portfolio",
         title: "Portfolio",
-        icon: "house",
+        icon: "card-holder",
         href: paths.home.portfolio,
       },
       {
         k: "worker",
         title: "Worker",
-        icon: "house",
+        icon: "presentation-chart",
         href: paths.home.worker,
       },
     ],

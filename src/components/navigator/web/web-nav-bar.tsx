@@ -66,7 +66,7 @@ export const SideNav: React.FC<SideNavProps> = ({ items = [] }) => {
         href={paths.home.portfolio}
         sx={{ p: 1, display: "flex", justifyContent: "center" }}
       >
-        <Logo height={80} width={160} />
+        <Logo height={87} width={160} />
       </Box>
 
       <Box

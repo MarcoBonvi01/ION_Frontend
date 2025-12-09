@@ -50,7 +50,7 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({
       },
     },
     {
-      name: "Head QuarterCity",
+      name: "Head Quarter City",
       field: "hq.city",
       headerName: "Head Quarter City",
       isSortable: true,
@@ -65,7 +65,7 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({
       },
     },
     {
-      name: "Head Quarter",
+      name: "Head Quarter State",
       field: "hq.state",
       headerName: "Head Quarter State",
       isSortable: true,
@@ -80,8 +80,8 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({
       },
     },
     {
-      name: "Head Quarter",
-      field: "hq",
+      name: "Head Quarter Country",
+      field: "hq.country",
       headerName: "Head Quarter Country",
       isSortable: true,
       formatter: (row: Row) => {
